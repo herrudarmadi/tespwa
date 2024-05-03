@@ -1,0 +1,1 @@
+document.getElementById("timer").innerText = Date.now() / 1000 | 0; 

@@ -1,0 +1,10 @@
+{
+    "name": "MyApp",
+    "icons": [
+      {
+        "src": "icons/logo.svg",
+        "sizes": "any"
+      }
+    ]
+  }
+  
