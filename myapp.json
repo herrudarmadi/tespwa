@@ -1,5 +1,6 @@
 {
     "name": "MyApp",
+    "start_url": "/pwa/",
     "icons": [
       {
         "src": "logo.svg",
