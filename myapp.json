@@ -2,7 +2,7 @@
     "name": "MyApp",
     "icons": [
       {
-        "src": "icons/logo.svg",
+        "src": "logo.svg",
         "sizes": "any"
       }
     ]
