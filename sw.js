@@ -4,13 +4,15 @@ const VERSION = "v1.1";
 // The name of the cache
 const CACHE_NAME = `MyApp-${VERSION}`;
 
+const DIR = '/tespwa';
+
 // The static resources that the app needs to function.
 const APP_STATIC_RESOURCES = [
-  "/",
-  "/index.html",
-  "/app.js",
-  "/style.css",
-  "/logo.svg",
+  DIR + "/",
+  DIR + "/index.html",
+  DIR + "/app.js",
+  DIR + "/style.css",
+  DIR + "/logo.svg",
 ];
 
 // On install, cache the static resources
