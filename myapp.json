@@ -1,7 +1,6 @@
 {
     "name": "MyApp",
-    "start_url": "/tespwa/",
-    "scope": "/tespwa/",
+    "start_url": ".",
     "icons": [
       {
         "src": "logo.svg",
