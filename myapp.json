@@ -1,6 +1,6 @@
 {
     "name": "MyApp",
-    "start_url": "/pwa/",
+    "start_url": "/tespwa/",
     "icons": [
       {
         "src": "logo.svg",
