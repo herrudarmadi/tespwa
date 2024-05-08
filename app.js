@@ -6,7 +6,23 @@ function getTS() {
 
 async function registerSync() {
   const swRegistration = await navigator.serviceWorker.ready;
-  swRegistration.sync.register("send-timer");
+  swRegistration.sync.register("send-attempt");
+}
+
+async function registerPeriodicSync() {
+  const swRegistration = await navigator.serviceWorker.ready;
+  swRegistration.periodicSync.register("send-attempt", {
+    // try to update every 1 hours
+    // minInterval: 1 * 60 * 60 * 1000,
+    
+    // try to update every 1 minute
+    minInterval: 60 * 1000,
+  });
+}
+
+async function registerPeriodicSync() {
+  const swRegistration = await navigator.serviceWorker.ready;
+  swRegistration.periodicSync.unregister("send-attempt");
 }
 
 // Check if the browser is online or offline
