@@ -69,16 +69,20 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// service-worker.js
-
-self.addEventListener("sync", (event) => {
-  if (event.tag == "send-timer") {
-    event.waitUntil(sendMessage());
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "send-attempt") {
+    event.waitUntil(sendAttempt());
   }
 });
 
-function sendMessage() {
-    console.log('sending message background sync');
+// self.addEventListener("sync", (event) => {
+//   if (event.tag == "send-attempt") {
+//     event.waitUntil(sendAttempt());
+//   }
+// });
+
+function sendAttempt() {
+    console.log('sending attempt background sync');
     // Data to send
     const data = {
         body: 'Hello from Background Sync at ' + (Date.now() / 1000 | 0),
