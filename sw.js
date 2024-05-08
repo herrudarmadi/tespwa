@@ -4,7 +4,7 @@ const VERSION = "v1.2.1";
 // The name of the cache
 const CACHE_NAME = `MyApp-${VERSION}`;
 
-const DIR = '';
+const DIR = '/tespwa';
 
 // The static resources that the app needs to function.
 const APP_STATIC_RESOURCES = [
@@ -45,10 +45,10 @@ self.addEventListener("activate", (event) => {
 // and respond with cached responses instead of going to network
 self.addEventListener("fetch", (event) => {
   // As a single page app, direct app to always go to cached home page.
-  if (event.request.mode === "navigate") {
-    event.respondWith(caches.match("/"));
-    return;
-  }
+  // if (event.request.mode === "navigate") {
+  //   event.respondWith(caches.match("/"));
+  //   return;
+  // }
 
   // For all other requests, go to the cache first, and then the network.
   event.respondWith(
