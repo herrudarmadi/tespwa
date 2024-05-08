@@ -76,3 +76,14 @@ self.addEventListener("sync", (event) => {
     event.waitUntil(sendMessage());
   }
 });
+
+function sendMessage() {
+    return new Promise((resolve, reject) => {
+        // Simulate sending a message (replace with your actual code)
+        setTimeout(() => {
+            const message = 'This is a message from Background Sync! ' + (Date.now() / 1000 | 0);
+            console.log('Message sent:', message);
+            resolve();
+        }, 3000); // Simulating sending message after 3 seconds
+    });
+}
