@@ -106,6 +106,11 @@ function sendAttempt() {
                 throw new Error('HTTP error, status = ' + response.status);
             }
             console.log('Data sent successfully');
+
+            const channel = new BroadcastChannel('SyncChannel');
+            channel.postMessage({ type: 'syncCompleted' });
+            channel.close();
+          
             return self.registration.sync.unregister('send-attempt');
         })
         .catch((error) => {
