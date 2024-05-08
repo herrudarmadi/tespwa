@@ -12,7 +12,6 @@ const APP_STATIC_RESOURCES = [
   DIR + "/index.html",
   DIR + "/app.js",
   DIR + "/style.css",
-  DIR + "/logo.svg",
 ];
 
 // On install, cache the static resources
@@ -55,7 +54,11 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
+      console.log('cache');
+      console.log(cache);
+      console.log(event.request.url);
       const cachedResponse = await cache.match(event.request.url);
+      
       if (cachedResponse) {
         // Return the cached response if it's available.
         return cachedResponse;
