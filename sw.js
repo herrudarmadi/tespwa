@@ -1,5 +1,5 @@
 // The version of the cache.
-const VERSION = "v1.2";
+const VERSION = "v1.2.1";
 
 // The name of the cache
 const CACHE_NAME = `MyApp-${VERSION}`;
