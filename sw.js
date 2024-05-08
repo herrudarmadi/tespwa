@@ -4,7 +4,7 @@ const VERSION = "v1.1";
 // The name of the cache
 const CACHE_NAME = `MyApp-${VERSION}`;
 
-const DIR = '/tespwa';
+const DIR = '';
 
 // The static resources that the app needs to function.
 const APP_STATIC_RESOURCES = [
