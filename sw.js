@@ -110,8 +110,7 @@ function sendAttempt() {
             const channel = new BroadcastChannel('SyncChannel');
             channel.postMessage({ type: 'syncCompleted' });
             channel.close();
-          
-            return self.registration.sync.unregister('send-attempt');
+        
         })
         .catch((error) => {
             console.error('Error sending data:', error);
