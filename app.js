@@ -20,11 +20,6 @@ async function registerPeriodicSync() {
   });
 }
 
-async function registerPeriodicSync() {
-  const swRegistration = await navigator.serviceWorker.ready;
-  swRegistration.periodicSync.unregister("send-attempt");
-}
-
 // Check if the browser is online or offline
 window.addEventListener('offline', () => {
     // Show the offline message
