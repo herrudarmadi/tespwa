@@ -7,6 +7,7 @@ function getTS() {
 let isSending, sendingInfoElement = document.getElementById("sendingInfo");
 
 async function registerSync() {
+  localStorage.setItem('testhd', 1234);
   isSending = true;
   sendingInfoElement.innerText = 'sending attempt..';
   const swRegistration = await navigator.serviceWorker.ready;
