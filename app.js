@@ -12,11 +12,11 @@ async function registerSync() {
 async function registerPeriodicSync() {
   const swRegistration = await navigator.serviceWorker.ready;
   swRegistration.periodicSync.register("send-attempt", {
-    // try to update every 1 hours
-    // minInterval: 1 * 60 * 60 * 1000,
+    // try to update every half hours
+    minInterval: .5 * 60 * 60 * 1000,
     
     // try to update every 1 minute
-    minInterval: 60 * 1000,
+    // minInterval: 60 * 1000,
   });
 }
 
