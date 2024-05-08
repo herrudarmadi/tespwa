@@ -4,7 +4,10 @@ function getTS() {
   return Date.now() / 1000 | 0; 
 }
 
+let isSending;
+
 async function registerSync() {
+  isSending = true;
   const swRegistration = await navigator.serviceWorker.ready;
   swRegistration.sync.register("send-attempt");
 }
@@ -27,6 +30,19 @@ window.addEventListener('offline', () => {
 });
 
 window.addEventListener('online', () => {
+    if (isSending) {
+      registerSync();
+    }
     // Hide the offline message
     document.getElementById('offlineMessage').style.display = 'none';
+});
+
+// Listen for messages from service worker
+const channel = new BroadcastChannel('SyncChannel');
+channel.addEventListener('message', (event) => {
+    if (event.data.type === 'syncCompleted') {
+        console.log('Sync completed');
+        // Trigger any necessary action in response to sync completion
+        isSending = false;
+    }
 });
