@@ -68,3 +68,11 @@ self.addEventListener("fetch", (event) => {
     })(),
   );
 });
+
+// service-worker.js
+
+self.addEventListener("sync", (event) => {
+  if (event.tag == "send-timer") {
+    event.waitUntil(sendMessage());
+  }
+});
