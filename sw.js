@@ -106,6 +106,7 @@ function sendAttempt() {
                 throw new Error('HTTP error, status = ' + response.status);
             }
             console.log('Data sent successfully');
+            return self.registration.sync.unregister('send-attempt');
         })
         .catch((error) => {
             console.error('Error sending data:', error);
