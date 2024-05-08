@@ -80,6 +80,7 @@ self.addEventListener("sync", (event) => {
 
 function sendAttempt() {
     console.log('sending attempt background sync');
+    console.log(localStorage.getItem('testhd'));
     // Data to send
     const data = {
         body: 'Hello from Background Sync at ' + (Date.now() / 1000 | 0),
