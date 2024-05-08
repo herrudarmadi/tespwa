@@ -75,11 +75,11 @@ self.addEventListener("periodicsync", (event) => {
   }
 });
 
-// self.addEventListener("sync", (event) => {
-//   if (event.tag == "send-attempt") {
-//     event.waitUntil(sendAttempt());
-//   }
-// });
+self.addEventListener("sync", (event) => {
+  if (event.tag == "send-attempt") {
+    event.waitUntil(sendAttempt());
+  }
+});
 
 function sendAttempt() {
     console.log('sending attempt background sync');
