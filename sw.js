@@ -78,12 +78,32 @@ self.addEventListener("sync", (event) => {
 });
 
 function sendMessage() {
-    return new Promise((resolve, reject) => {
-        // Simulate sending a message (replace with your actual code)
-        setTimeout(() => {
-            const message = 'This is a message from Background Sync! ' + (Date.now() / 1000 | 0);
-            console.log('Message sent:', message);
-            resolve();
-        }, 3000); // Simulating sending message after 3 seconds
-    });
+    console.log('sending message background sync');
+    // Data to send
+    const data = {
+        body: 'Hello from Background Sync at ' + (Date.now() / 1000 | 0),
+        title: 'Hello from Background Sync at ' + (Date.now() / 1000 | 0),
+        userId: 1,
+    };
+
+    // Options for the fetch request
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    // Send the HTTP POST request
+    return fetch('https://jsonplaceholder.typicode.com/posts', options)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('HTTP error, status = ' + response.status);
+            }
+            console.log('Data sent successfully');
+        })
+        .catch((error) => {
+            console.error('Error sending data:', error);
+        });
 }
