@@ -4,10 +4,11 @@ function getTS() {
   return Date.now() / 1000 | 0; 
 }
 
-let isSending;
+let isSending, sendingInfoElement = document.getElementById("sendingInfo");
 
 async function registerSync() {
   isSending = true;
+  sendingInfoElement.innerText = 'sending attempt..';
   const swRegistration = await navigator.serviceWorker.ready;
   swRegistration.sync.register("send-attempt");
 }
@@ -41,6 +42,8 @@ window.addEventListener('online', () => {
 const channel = new BroadcastChannel('SyncChannel');
 channel.addEventListener('message', (event) => {
     if (event.data.type === 'syncCompleted') {
+        sendingInfoElement.innerText = 'Attempt sent';
+        setTimeout(function() { sendingInfoElement.innerText = ''; }, 1000);
         console.log('Sync completed');
         // Trigger any necessary action in response to sync completion
         isSending = false;
