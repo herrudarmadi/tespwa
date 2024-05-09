@@ -31,12 +31,16 @@ window.addEventListener('offline', () => {
 });
 
 window.addEventListener('online', () => {
-    if (isSending) {
-      registerSync();
-    }
+    // if (isSending) {
+    //   registerSync();
+    // }
     // Hide the offline message
     document.getElementById('offlineMessage').style.display = 'none';
 });
+
+window.addEventListener('load', function() {
+    document.getElementById('offlineMessage').style.display = navigator.onLine ? '' : 'block';
+}
 
 // Listen for messages from service worker
 const channel = new BroadcastChannel('SyncChannel');
