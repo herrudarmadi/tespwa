@@ -39,7 +39,7 @@ window.addEventListener('online', () => {
 });
 
 window.addEventListener('load', function() {
-    document.getElementById('offlineMessage').style.display = (navigator.onLine ? '' : 'block');
+    document.getElementById('offlineMessage').style.display = (navigator.onLine ? 'none' : 'block');
 });
 
 // Listen for messages from service worker
