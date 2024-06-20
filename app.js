@@ -53,3 +53,23 @@ channel.addEventListener('message', (event) => {
         isSending = false;
     }
 });
+
+const button = document.getElementById("notifications");
+button.addEventListener("click", () => {
+  Notification.requestPermission().then((result) => {
+    if (result === "granted") {
+      randomNotification();
+    }
+  });
+});
+
+function randomNotification() {
+  const notifTitle = "Kumpul tugas!";
+  const notifBody = `Jangan lupa kumpul tugas.`;
+  const options = {
+    body: notifBody
+  };
+  new Notification(notifTitle, options);
+  setTimeout(randomNotification, 5000);
+}
+
