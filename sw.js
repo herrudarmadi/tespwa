@@ -113,3 +113,89 @@ function sendAttempt() {
             console.error('Error sending data:', error);
         });
 }
+
+function fetchAndCacheResources() {
+    const pageUrl = '/content01.html';
+    let progressElement = document.getElementById('progress'); // Element to show progress
+
+    // Fetch the page
+    fetch(pageUrl)
+        .then(response => {
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+                throw new Error('Failed to fetch');
+            }
+            // Clone the response
+            const responseClone = response.clone();
+
+            // Cache the page
+            caches.open('dynamic-v1').then(cache => {
+                cache.put(pageUrl, responseClone);
+            });
+
+            return response.text(); // Get the text of the page
+        })
+        .then(htmlString => {
+            // Parse the HTML to find additional resources
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+
+            // Collect URLs of additional resources
+            const resources = [];
+            const tags = ['img', 'audio', 'video', 'source', 'link[rel="stylesheet"]', 'script'];
+            tags.forEach(tag => {
+                const elements = doc.querySelectorAll(tag);
+                elements.forEach(element => {
+                    let url = '';
+                    if (tag === 'link' || tag === 'script') {
+                        url = element.getAttribute('href');
+                    } else {
+                        url = element.getAttribute('src');
+                    }
+                    if (url) {
+                        resources.push(url);
+                    }
+                });
+            });
+
+            // Initialize progress
+            let totalResources = resources.length;
+            let cachedResources = 0;
+            updateProgress(0, progressElement);
+
+            // Fetch and cache additional resources
+            resources.forEach(resourceUrl => {
+                fetch(resourceUrl)
+                    .then(resourceResponse => {
+                        if (!resourceResponse || resourceResponse.status !== 200 || resourceResponse.type !== 'basic') {
+                            throw new Error('Failed to fetch resource: ' + resourceUrl);
+                        }
+                        caches.open('dynamic-v1').then(cache => {
+                            cache.put(resourceUrl, resourceResponse.clone());
+
+                            // Update progress
+                            cachedResources++;
+                            updateProgress(Math.round((cachedResources / totalResources) * 100), progressElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Failed to cache resource: ', resourceUrl, error);
+                    });
+            });
+        })
+        .catch(error => {
+            console.error('Failed to cache resources: ', error);
+        });
+}
+
+// Function to update progress
+function updateProgress(progress, element) {
+    if (element) {
+        element.textContent = `Progress: ${progress}%`;
+    }
+}
+
+// Event listener for the sync button
+document.getElementById('sync-button').addEventListener('click', function() {
+    fetchAndCacheResources();
+});
+
